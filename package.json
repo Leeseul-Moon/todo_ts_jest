@@ -62,15 +62,5 @@
     "prettier": "^2.7.1"
   },
   "description": "readme",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Leeseul-Moon/todo_ts_jest.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Leeseul-Moon/todo_ts_jest/issues"
-  },
-  "homepage": "https://github.com/Leeseul-Moon/todo_ts_jest#readme"
+  "main": "index.js"
 }
