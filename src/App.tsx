@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import Header from './components/header/Header';
-import TodoList from './components/todoList/TodoList';
+import TodoList, {
+  readTodosFromLocalStorage,
+} from './components/todoList/TodoList';
 import { DarkModeProvider } from './contexts/DarkModeContext';
+import TodoPresenter from './todo_presenter';
 
 function App() {
   const filters = ['all', 'active', 'completed'];
   const [filter, setFilter] = useState<string>('all');
+
+  const presenter = new TodoPresenter(readTodosFromLocalStorage());
+
   return (
     <DarkModeProvider>
       <>
         <Header filters={filters} filter={filter} onFilterChange={setFilter} />
-        <TodoList filter={filter} />
+        <TodoList filter={filter} presenter={presenter} />
       </>
     </DarkModeProvider>
   );

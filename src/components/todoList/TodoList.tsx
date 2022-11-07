@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { TodoItem } from '../../models/todo';
+import TodoPresenter from '../../todo_presenter';
 import AddTodoForm from '../addTodoForm/AddTodoForm';
 import Todo from '../todo/Todo';
 import styles from './TodoList.module.css';
 
 interface Props {
   filter: string;
+  presenter: TodoPresenter;
 }
 
-function TodoList({ filter }: Props) {
-  const [todos, setTodos] = useState(() => readTodosFromLocalStorage());
+function TodoList({ filter, presenter }: Props) {
+  const [todos, setTodos] = useState(presenter.getTodos());
 
-  const handleAdd = (todo: TodoItem) => setTodos([...todos, todo]);
-  const handleUpdate = (updated: TodoItem) =>
-    setTodos(todos.map((t: TodoItem) => (t.id === updated.id ? updated : t)));
-  const handleDelete = (deleted: TodoItem) =>
-    setTodos(todos.filter((t: TodoItem) => t.id !== deleted.id));
+  const handleAdd = (todo: TodoItem) => presenter.add(todo, setTodos);
+  const handleUpdate = (todo: TodoItem) => presenter.check(todo, setTodos);
+  const handleDelete = (todo: TodoItem) => presenter.remove(todo, setTodos);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+    presenter.setTodos(readTodosFromLocalStorage());
+  }, [todos, presenter]);
 
   const filtered = getFilteredItems(todos, filter);
+
   return (
     <section className={styles.container}>
       <ul className={styles.list}>
@@ -39,7 +41,7 @@ function TodoList({ filter }: Props) {
   );
 }
 
-function readTodosFromLocalStorage() {
+export function readTodosFromLocalStorage(): TodoItem[] {
   const todos = localStorage.getItem('todos');
   return todos ? JSON.parse(todos) : [];
 }
