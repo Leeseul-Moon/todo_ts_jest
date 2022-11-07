@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TodoItem } from '../../models/todo';
-import TodoPresenter from '../../todo_presenter';
+import TodoPresenter from './todo_presenter';
 import AddTodoForm from '../addTodoForm/AddTodoForm';
 import Todo from '../todo/Todo';
 import styles from './TodoList.module.css';

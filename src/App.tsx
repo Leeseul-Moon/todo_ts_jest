@@ -4,7 +4,7 @@ import TodoList, {
   readTodosFromLocalStorage,
 } from './components/todoList/TodoList';
 import { DarkModeProvider } from './contexts/DarkModeContext';
-import TodoPresenter from './todo_presenter';
+import TodoPresenter from './components/todoList/todo_presenter';
 
 function App() {
   const filters = ['all', 'active', 'completed'];

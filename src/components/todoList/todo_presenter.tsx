@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { TodoItem } from './models/todo';
+import { TodoItem } from '../../models/todo';
 
 export default class TodoPresenter {
   todos: TodoItem[];
@@ -17,14 +17,17 @@ export default class TodoPresenter {
   }
 
   add(todo: TodoItem, update: Dispatch<SetStateAction<TodoItem[]>>) {
-    update([...this.todos, todo]);
+    this.todos = [...this.todos, todo];
+    update(this.todos);
   }
 
   check(todo: TodoItem, update: Dispatch<SetStateAction<TodoItem[]>>) {
-    update(this.todos.map((t: TodoItem) => (t.id === todo.id ? todo : t)));
+    this.todos = this.todos.map((t: TodoItem) => (t.id === todo.id ? todo : t));
+    update(this.todos);
   }
 
   remove(todo: TodoItem, update: Dispatch<SetStateAction<TodoItem[]>>) {
-    update(this.todos.filter((t: TodoItem) => t.id !== todo.id));
+    this.todos = this.todos.filter((t: TodoItem) => t.id !== todo.id);
+    update(this.todos);
   }
 }
