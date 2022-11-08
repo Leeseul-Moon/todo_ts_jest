@@ -37,12 +37,12 @@ describe('todoPresenter', () => {
     checkUpdateIsCalled();
   });
 
-  //   it('todo 완료', () => {
-  //     presenter.add(todos[0], update);
-
-  //     expect(presenter.getTodos()[0].status).toBe('completed');
-  //     checkUpdateIsCalled();
-  //   });
+  it('todo 완료', () => {
+    presenter.check(todos[0], update);
+    presenter.getTodos()[0].status = 'completed';
+    expect(presenter.getTodos()[0].status).toBe('completed');
+    checkUpdateIsCalled();
+  });
 
   function checkUpdateIsCalled() {
     expect(update).toHaveBeenCalledTimes(1);
